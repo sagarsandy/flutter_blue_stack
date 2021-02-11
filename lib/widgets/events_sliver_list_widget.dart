@@ -1,0 +1,76 @@
+import 'package:flutter/material.dart';
+
+class EventsSliverListWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SliverList(
+      delegate: SliverChildBuilderDelegate((context, index) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            shadowColor: Colors.black,
+            child: Container(
+              height: 170,
+              child: Column(
+                children: [
+                  Container(
+                    height: 100,
+                    width: MediaQuery.of(context).size.width - 20,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(20),
+                          topLeft: Radius.circular(20)),
+                      child: Image.network(
+                        "https://newevolutiondesigns.com/images/freebies/abstract-facebook-cover-4.jpg",
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width - 120,
+                                child: Text(
+                                  "Fortnite Champions Mar 2020 Telugu warriors bingo",
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                "Fortnite",
+                                style: TextStyle(color: Colors.black54),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Icon(
+                          Icons.chevron_right_sharp,
+                          size: 35,
+                          color: Colors.black54,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }, childCount: 5),
+    );
+  }
+}

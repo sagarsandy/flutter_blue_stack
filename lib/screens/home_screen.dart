@@ -1,10 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_stack/widgets/events_sliver_list_widget.dart';
 import 'package:flutter_blue_stack/widgets/menu_button_widget.dart';
 import 'package:flutter_blue_stack/widgets/player_info_widget.dart';
 import 'package:flutter_blue_stack/widgets/player_stats_widget.dart';
 
 class HomeScreen extends StatelessWidget {
+  final List events = [
+    "Bingo boys",
+    "Nano Nams",
+    "Net beans",
+    "Pillow powers",
+    "kOkoko ko"
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,18 +26,31 @@ class HomeScreen extends StatelessWidget {
         ),
         leading: MenuButtonWidget(),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              // Rendering player info widget
-              PlayerInfoWidget(),
-              SizedBox(height: 10),
-              // Rendering player game stats widget
-              PlayerStatsWidget(),
-            ],
-          ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: CustomScrollView(
+          slivers: [
+            // Rendering player info widget
+            SliverToBoxAdapter(
+              child: PlayerInfoWidget(),
+            ),
+            // Rendering player stats widget
+            SliverToBoxAdapter(
+              child: PlayerStatsWidget(),
+            ),
+            // Rendering recommended label widget
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 12.0, left: 5, bottom: 10),
+                child: Text(
+                  "Recommended for you",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                ),
+              ),
+            ),
+            // Rendering events sliver list
+            EventsSliverListWidget(),
+          ],
         ),
       ),
     );

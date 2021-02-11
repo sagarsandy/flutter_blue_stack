@@ -21,7 +21,7 @@ class PlayerInfoWidget extends StatelessWidget {
                 Text(
                   "Simon Baker",
                   style: TextStyle(
-                    fontSize: 23,
+                    fontSize: 24,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -44,7 +44,7 @@ class PlayerInfoWidget extends StatelessWidget {
                         text: '2250 ',
                         style: TextStyle(
                           color: Colors.blueAccent,
-                          fontSize: 23,
+                          fontSize: 24,
                           fontWeight: FontWeight.w500,
                         ),
                         children: [
