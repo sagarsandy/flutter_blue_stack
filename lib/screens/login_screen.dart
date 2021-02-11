@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_blue_stack/screens/dashboard_screen.dart';
+import 'package:flutter_blue_stack/screens/home_screen.dart';
 import 'package:flutter_blue_stack/widgets/textfield_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -153,7 +153,7 @@ class _LogInScreenState extends State<LogInScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DashboardScreen(),
+              builder: (context) => HomeScreen(),
             ),
           );
         }

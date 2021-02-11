@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_stack/screens/dashboard_screen.dart';
+import 'package:flutter_blue_stack/screens/home_screen.dart';
 import 'package:flutter_blue_stack/screens/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Blue Stack',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return FutureBuilder(
       future: future,
       builder: (context, snapShot) {
-        return snapShot.data == true ? DashboardScreen() : LogInScreen();
+        return snapShot.data == true ? HomeScreen() : LogInScreen();
       },
     );
   }
