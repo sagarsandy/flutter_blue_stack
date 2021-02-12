@@ -20,7 +20,7 @@ class PlayerProviderService extends ChangeNotifier {
     } else {
       // Displaying error, if there is any issue in fetching data
       scaffoldKey.currentState.showSnackBar(SnackBar(
-          backgroundColor: Colors.red, content: Text("Network error!!")));
+          backgroundColor: Colors.red, content: Text(playerData["error"])));
     }
   }
 
@@ -40,7 +40,8 @@ class PlayerProviderService extends ChangeNotifier {
     } else {
       // Displaying error, if there is any issue in fetching data
       scaffoldKey.currentState.showSnackBar(SnackBar(
-          backgroundColor: Colors.red, content: Text("Network error!!")));
+          backgroundColor: Colors.red,
+          content: Text(tournamentsData["error"])));
     }
   }
 }

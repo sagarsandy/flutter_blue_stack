@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("Sagar Sandy build");
     return Scaffold(
       key: homeScreenScaffoldKey,
       backgroundColor: Color(0XFFF9F9F9),
@@ -85,18 +86,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Service call to fetch player tournaments data
   loadTournamentsData() {
-    Timer(Duration(milliseconds: 1), () {
-      Provider.of<PlayerProviderService>(context, listen: false)
-          .getTournamentsData(homeScreenScaffoldKey);
-    });
+    Provider.of<PlayerProviderService>(context, listen: false)
+        .getTournamentsData(homeScreenScaffoldKey);
   }
 
   // Service call to fetch player profile data
   loadUserProfileData() {
-    Timer(Duration(milliseconds: 1), () {
-      Provider.of<PlayerProviderService>(context, listen: false)
-          .getPlayerData(homeScreenScaffoldKey);
-    });
+    Provider.of<PlayerProviderService>(context, listen: false)
+        .getPlayerData(homeScreenScaffoldKey);
   }
 
   // Handling scroll events to load more data on scroll(pagination)

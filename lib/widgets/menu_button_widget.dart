@@ -1,27 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_stack/screens/login_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        SharedPreferences spf = await SharedPreferences.getInstance();
-        spf.remove('isLoggedIn');
-        if (Navigator.canPop(context)) {
-          Navigator.of(context).pop();
-        } else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => LogInScreen(),
-            ),
-          );
-        }
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10.0, top: 19),
+    return Padding(
+      padding: const EdgeInsets.only(left: 10.0, top: 19),
+      child: Container(
+        // color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

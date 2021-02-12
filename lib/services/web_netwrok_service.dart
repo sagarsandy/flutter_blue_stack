@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_blue_stack/models/player.dart';
 import 'package:flutter_blue_stack/models/tournament.dart';
 import 'package:http/http.dart';
@@ -9,7 +11,7 @@ class WebNetworkService {
     List<Tournament> tournaments = [];
     String paginationCursor = '';
     try {
-      final response = await get(url);
+      final response = await get(url).timeout(Duration(seconds: 30));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         paginationCursor = jsonData["data"]["cursor"];
@@ -23,18 +25,23 @@ class WebNetworkService {
           return data;
         } else {
           print("No records found");
-          final data = {"error": "Tournament data not found!!"};
+          final data = {"error": "11 Tournament data not found!!"};
           return data;
         }
       } else {
         print("Something went wrong, handle error here 1");
-        final data = {"error": "Tournament data not found!!"};
+        final data = {"error": " 12 Tournament data not found!!"};
         return data;
       }
-    } catch (e) {
+    } on TimeoutException catch (e) {
       print("Something went wrong, handle error here 2");
       print(e.toString());
-      final data = {"error": "Tournament data not found!!"};
+      final data = {"error": "Network timeout!!"};
+      return data;
+    } on Error catch (e) {
+      print("Something went wrong, handle error here 2");
+      print(e.toString());
+      final data = {"error": e.toString()};
       return data;
     }
   }
@@ -43,7 +50,8 @@ class WebNetworkService {
   Future<Map> getProfileData(url) async {
     try {
       final response =
-          await get("https://sagarflutterdev.mock.pw/api/playerinfo");
+          await get("https://sagarflutterdev.mock.pw/api/playerinfo")
+              .timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         Player player = Player.fromJson(jsonData);
@@ -52,13 +60,18 @@ class WebNetworkService {
         return data;
       } else {
         print("Something went wrong, handle error here 3");
-        final data = {"error": "Profile data not found!!"};
+        final data = {"error": " 22 Profile data not found!!"};
         return data;
       }
-    } catch (e) {
+    } on TimeoutException catch (e) {
+      print("Something went wrong, network time out");
+      print(e.toString());
+      final data = {"error": "Network timeout!!"};
+      return data;
+    } on Error catch (e) {
       print("Something went wrong, handle error here 4");
       print(e.toString());
-      final data = {"error": "Profile data not found!!"};
+      final data = {"error": e.toString()};
       return data;
     }
   }
