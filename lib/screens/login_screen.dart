@@ -98,7 +98,9 @@ class _LogInScreenState extends State<LogInScreen> {
                     InkWell(
                       splashColor: Colors.deepOrangeAccent,
                       onTap: () {
-                        if (showSubmitButton) {}
+                        if (showSubmitButton) {
+                          validateLoginDetails();
+                        }
                       },
                       child: Container(
                         height: 45,
@@ -156,6 +158,8 @@ class _LogInScreenState extends State<LogInScreen> {
               builder: (context) => HomeScreen(),
             ),
           );
+
+          return;
         }
       }
       // Displaying error, if user entered invalid login details

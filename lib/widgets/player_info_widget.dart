@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 class PlayerInfoWidget extends StatelessWidget {
+  final String profilePhoto;
+  final String name;
+  final String points;
+
+  PlayerInfoWidget({this.profilePhoto, this.name, this.points});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -9,8 +15,7 @@ class PlayerInfoWidget extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 45,
-            backgroundImage: NetworkImage(
-                "https://content.api.news/v3/images/bin/8f80463ecf60f40771dbbcc51aa4c789"),
+            backgroundImage: NetworkImage(profilePhoto),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 20.0, bottom: 15, left: 15),
@@ -19,7 +24,7 @@ class PlayerInfoWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Simon Baker",
+                  name,
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
@@ -41,7 +46,7 @@ class PlayerInfoWidget extends StatelessWidget {
                         const EdgeInsets.only(left: 8.0, top: 8, right: 50),
                     child: RichText(
                       text: TextSpan(
-                        text: '2250 ',
+                        text: points,
                         style: TextStyle(
                           color: Colors.blueAccent,
                           fontSize: 24,
@@ -49,7 +54,7 @@ class PlayerInfoWidget extends StatelessWidget {
                         ),
                         children: [
                           TextSpan(
-                            text: 'Elo rating',
+                            text: ' Elo rating',
                             style: TextStyle(
                               textBaseline: TextBaseline.ideographic,
                               color: Colors.black,

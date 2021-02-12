@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_stack/models/tournament.dart';
 
 class EventsSliverListWidget extends StatelessWidget {
+  final List<Tournament> tournamentsData;
+
+  EventsSliverListWidget(this.tournamentsData);
+
   @override
   Widget build(BuildContext context) {
     return SliverList(
@@ -8,10 +13,11 @@ class EventsSliverListWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 8.0),
           child: Card(
+            elevation: 10,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            shadowColor: Colors.black,
+            shadowColor: Colors.black54,
             child: Container(
               height: 170,
               child: Column(
@@ -24,7 +30,7 @@ class EventsSliverListWidget extends StatelessWidget {
                           topRight: Radius.circular(20),
                           topLeft: Radius.circular(20)),
                       child: Image.network(
-                        "https://newevolutiondesigns.com/images/freebies/abstract-facebook-cover-4.jpg",
+                        tournamentsData[index].coverUrl,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -42,17 +48,21 @@ class EventsSliverListWidget extends StatelessWidget {
                               Container(
                                 width: MediaQuery.of(context).size.width - 120,
                                 child: Text(
-                                  "Fortnite Champions Mar 2020 Telugu warriors bingo",
+                                  tournamentsData[index].name,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600),
                                 ),
                               ),
-                              SizedBox(height: 8),
-                              Text(
-                                "Fortnite",
-                                style: TextStyle(color: Colors.black54),
+                              SizedBox(height: 7),
+                              Container(
+                                width: MediaQuery.of(context).size.width - 120,
+                                child: Text(
+                                  tournamentsData[index].gameName,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(color: Colors.black54),
+                                ),
                               ),
                             ],
                           ),
@@ -70,7 +80,7 @@ class EventsSliverListWidget extends StatelessWidget {
             ),
           ),
         );
-      }, childCount: 5),
+      }, childCount: tournamentsData.length),
     );
   }
 }
