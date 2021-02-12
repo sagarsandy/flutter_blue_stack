@@ -49,9 +49,9 @@ class WebNetworkService {
   // Service call to fetch user profile data
   Future<Map> getProfileData(url) async {
     try {
-      final response =
-          await get("https://sagarflutterdev.mock.pw/api/playerinfo")
-              .timeout(const Duration(seconds: 30));
+      final response = await get(
+              "https://6026b9eb186b4a0017780865.mockapi.io/api/v1/player/1")
+          .timeout(const Duration(seconds: 30));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         Player player = Player.fromJson(jsonData);

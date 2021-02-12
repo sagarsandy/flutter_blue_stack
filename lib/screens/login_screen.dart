@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_blue_stack/screens/home_screen.dart';
+import 'package:flutter_blue_stack/services/login_validation_service.dart';
 import 'package:flutter_blue_stack/widgets/textfield_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -140,51 +141,16 @@ class _LogInScreenState extends State<LogInScreen> {
     FocusScope.of(context).requestFocus(FocusNode());
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-      // Hardcoded list of users to check login
-      const List users = [
-        {"username": "9898989898", "password": "password"},
-        {"username": "9876543210", "password": "password"}
-      ];
-
-      users.map((user) {
-        if (user["username"] == userName && user["password"] == userPassword) {
-          // Calling a method to store login data
-          storeLoginData();
-          // Redirecting user to dashboard screen
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomeScreen(),
-            ),
-          );
-          return;
-        }
-      });
-      for (final user in users) {
-        if (user["username"] == userName && user["password"] == userPassword) {
-          // Calling a method to store login data
-          storeLoginData();
-          // Redirecting user to dashboard screen
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => HomeScreen(),
-            ),
-          );
-          return;
-        }
+      bool validationStatus = LogInValidationService()
+          .validateLoginDetails(context, userName, userPassword);
+      if (!validationStatus) {
+        // Displaying error, if user entered invalid login details
+        signInScaffoldKey.currentState.showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
+            content: Text("Invalid login details")));
+        print("User not found");
       }
-      // Displaying error, if user entered invalid login details
-      signInScaffoldKey.currentState.showSnackBar(SnackBar(
-          backgroundColor: Colors.red, content: Text("Invalid login details")));
-      print("User not found");
     }
-  }
-
-  // Storing user login data in shared preferences, so that we can auto login next time
-  storeLoginData() async {
-    SharedPreferences spf = await SharedPreferences.getInstance();
-    spf.setBool("isLoggedIn", true);
   }
 }
 
