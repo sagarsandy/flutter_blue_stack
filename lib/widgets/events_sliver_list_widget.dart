@@ -22,6 +22,7 @@ class EventsSliverListWidget extends StatelessWidget {
               height: 170,
               child: Column(
                 children: [
+                  // Rendering tournament cover image
                   Container(
                     height: 100,
                     width: MediaQuery.of(context).size.width - 20,
@@ -45,6 +46,7 @@ class EventsSliverListWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
+                              // Rendering tournament name
                               Container(
                                 width: MediaQuery.of(context).size.width - 120,
                                 child: Text(
@@ -56,6 +58,7 @@ class EventsSliverListWidget extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: 7),
+                              // Rendering tournament game name
                               Container(
                                 width: MediaQuery.of(context).size.width - 120,
                                 child: Text(

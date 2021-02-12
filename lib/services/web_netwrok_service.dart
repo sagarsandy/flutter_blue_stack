@@ -12,11 +12,9 @@ class WebNetworkService {
       final response = await get(url);
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
-        print(jsonData['data']['tournaments']);
         paginationCursor = jsonData["data"]["cursor"];
         final tournamentsData = jsonData["data"]["tournaments"] as List;
         if (tournamentsData != null) {
-          // print(tournamentsData);
           tournaments = tournamentsData
               .map<Tournament>((json) => Tournament.fromJson(json))
               .toList();
@@ -44,9 +42,7 @@ class WebNetworkService {
           await get("https://sagarflutterdev.mock.pw/api/playerinfo");
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
-        print(jsonData);
         Player player = Player.fromJson(jsonData);
-        print(player);
         return player;
       } else {
         print("Something went wrong, handle error here 3");

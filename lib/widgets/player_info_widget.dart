@@ -13,6 +13,7 @@ class PlayerInfoWidget extends StatelessWidget {
       height: 130,
       child: Row(
         children: [
+          // Rendering player profile avatar
           CircleAvatar(
             radius: 45,
             backgroundImage: NetworkImage(profilePhoto),
@@ -23,6 +24,7 @@ class PlayerInfoWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                // Rendering player name
                 Text(
                   name,
                   style: TextStyle(
@@ -30,6 +32,7 @@ class PlayerInfoWidget extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+                // Rendering player rating points
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
@@ -65,7 +68,7 @@ class PlayerInfoWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

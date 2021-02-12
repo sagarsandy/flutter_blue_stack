@@ -18,6 +18,7 @@ class PlayerStatsWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
+          // Tournaments played box widget
           Expanded(
             child: Container(
               decoration: BoxDecoration(
@@ -39,6 +40,7 @@ class PlayerStatsWidget extends StatelessWidget {
             ),
             flex: 1,
           ),
+          // Tournaments won box widget
           Expanded(
             child: Container(
               decoration: BoxDecoration(
@@ -57,6 +59,7 @@ class PlayerStatsWidget extends StatelessWidget {
             ),
             flex: 1,
           ),
+          // Tournaments win percent box widget
           Expanded(
             child: Container(
               decoration: BoxDecoration(

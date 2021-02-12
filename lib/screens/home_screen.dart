@@ -15,41 +15,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   ScrollController _scrollController = ScrollController();
   bool showLoader = false;
-  Map<String, dynamic> playerProfileData = {};
 
   @override
   void initState() {
     loadTournamentsData();
     loadUserProfileData();
-    _scrollController.addListener(() {
-      if (_scrollController.position.atEdge) {
-        if (_scrollController.position.pixels == 0) {
-          // Top
-          print("Top Scroller");
-        } else {
-          setState(() {
-            showLoader = true;
-            loadTournamentsData();
-          });
-        }
-      }
-    });
-
+    handleScrollEvents();
     super.initState();
-  }
-
-  loadTournamentsData() {
-    Timer(Duration(microseconds: 10), () {
-      Provider.of<PlayerProviderService>(context, listen: false)
-          .getTournamentsData();
-    });
-  }
-
-  loadUserProfileData() {
-    Timer(Duration(microseconds: 5), () {
-      Provider.of<PlayerProviderService>(context, listen: false)
-          .getPlayerData();
-    });
   }
 
   @override
@@ -73,12 +45,14 @@ class _HomeScreenState extends State<HomeScreen> {
             child: CustomScrollView(
               controller: _scrollController,
               slivers: [
-                playerNotifyProvider.currentPlayer != null
-                    ? SliverToBoxAdapter(
-                        child: PlayerDetailsWidget(
-                            player: playerNotifyProvider.currentPlayer),
-                      )
-                    : LoaderWidget("....."),
+                // Rendering player details(profile) widget, if no data available then we r showing a loader
+                if (playerNotifyProvider.currentPlayer != null)
+                  SliverToBoxAdapter(
+                    child: PlayerDetailsWidget(
+                        player: playerNotifyProvider.currentPlayer),
+                  )
+                else
+                  LoaderWidget("....."),
                 // Rendering recommended label widget
                 SliverToBoxAdapter(
                   child: Padding(
@@ -91,10 +65,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                playerNotifyProvider.tournaments.length > 0
-                    ? EventsSliverListWidget(playerNotifyProvider.tournaments)
-                    : LoaderWidget("Loading"),
-                // Display loader
+                // Rendering tournaments list widget, if no tournaments, then we r shwoing laoder
+                if (playerNotifyProvider.tournaments.length > 0)
+                  EventsSliverListWidget(playerNotifyProvider.tournaments)
+                else
+                  LoaderWidget("Loading"),
+                // Displaying loader for loading more tournaments on pagination
                 if (showLoader) LoaderWidget("Loading..."),
               ],
             ),
@@ -102,5 +78,38 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       ),
     );
+  }
+
+  // Service call to fetch player tournaments data
+  loadTournamentsData() {
+    Timer(Duration(milliseconds: 10), () {
+      Provider.of<PlayerProviderService>(context, listen: false)
+          .getTournamentsData();
+    });
+  }
+
+  // Service call to fetch player profile data
+  loadUserProfileData() {
+    Timer(Duration(milliseconds: 5), () {
+      Provider.of<PlayerProviderService>(context, listen: false)
+          .getPlayerData();
+    });
+  }
+
+  // Handling scroll events to load more data on scroll(pagination)
+  handleScrollEvents() {
+    _scrollController.addListener(() {
+      if (_scrollController.position.atEdge) {
+        if (_scrollController.position.pixels == 0) {
+          // Top
+          print("Top Scroller");
+        } else {
+          setState(() {
+            showLoader = true;
+            loadTournamentsData();
+          });
+        }
+      }
+    });
   }
 }

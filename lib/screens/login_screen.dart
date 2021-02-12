@@ -140,13 +140,26 @@ class _LogInScreenState extends State<LogInScreen> {
     FocusScope.of(context).requestFocus(FocusNode());
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
-
       // Hardcoded list of users to check login
       const List users = [
         {"username": "9898989898", "password": "password"},
         {"username": "9876543210", "password": "password"}
       ];
 
+      users.map((user) {
+        if (user["username"] == userName && user["password"] == userPassword) {
+          // Calling a method to store login data
+          storeLoginData();
+          // Redirecting user to dashboard screen
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ),
+          );
+          return;
+        }
+      });
       for (final user in users) {
         if (user["username"] == userName && user["password"] == userPassword) {
           // Calling a method to store login data
@@ -158,7 +171,6 @@ class _LogInScreenState extends State<LogInScreen> {
               builder: (context) => HomeScreen(),
             ),
           );
-
           return;
         }
       }

@@ -7,14 +7,11 @@ class MenuButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        print("hello 1");
         SharedPreferences spf = await SharedPreferences.getInstance();
         spf.remove('isLoggedIn');
         if (Navigator.canPop(context)) {
-          print("hello 2");
           Navigator.of(context).pop();
         } else {
-          print("hello 3");
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(

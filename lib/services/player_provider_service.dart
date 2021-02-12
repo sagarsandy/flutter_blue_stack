@@ -8,6 +8,7 @@ class PlayerProviderService extends ChangeNotifier {
   String paginationToken = '';
   Player currentPlayer = null;
 
+  // Service call to fetch player profile info data
   getPlayerData() async {
     print("Called get player data function");
     Player player = await WebNetworkService()
@@ -17,6 +18,7 @@ class PlayerProviderService extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Service call to fetch player tournaments info data
   getTournamentsData() async {
     print("Called get tournaments function");
     print(paginationToken);
