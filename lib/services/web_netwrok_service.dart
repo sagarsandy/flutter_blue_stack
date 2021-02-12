@@ -23,35 +23,43 @@ class WebNetworkService {
           return data;
         } else {
           print("No records found");
+          final data = {"error": "Tournament data not found!!"};
+          return data;
         }
       } else {
         print("Something went wrong, handle error here 1");
+        final data = {"error": "Tournament data not found!!"};
+        return data;
       }
     } catch (e) {
       print("Something went wrong, handle error here 2");
       print(e.toString());
+      final data = {"error": "Tournament data not found!!"};
+      return data;
     }
-    print("API call failed");
-    return null;
   }
 
   // Service call to fetch user profile data
-  Future<Player> getProfileData(url) async {
+  Future<Map> getProfileData(url) async {
     try {
       final response =
           await get("https://sagarflutterdev.mock.pw/api/playerinfo");
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         Player player = Player.fromJson(jsonData);
-        return player;
+        final data = {"player": player};
+
+        return data;
       } else {
         print("Something went wrong, handle error here 3");
+        final data = {"error": "Profile data not found!!"};
+        return data;
       }
     } catch (e) {
       print("Something went wrong, handle error here 4");
       print(e.toString());
+      final data = {"error": "Profile data not found!!"};
+      return data;
     }
-    print("API call failed 2");
-    return null;
   }
 }

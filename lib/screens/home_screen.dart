@@ -15,6 +15,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   ScrollController _scrollController = ScrollController();
   bool showLoader = false;
+  final GlobalKey<ScaffoldState> homeScreenScaffoldKey =
+      GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -27,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: homeScreenScaffoldKey,
       backgroundColor: Color(0XFFF9F9F9),
       appBar: AppBar(
         backgroundColor: Color(0XFFF9F9F9),
@@ -82,17 +85,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Service call to fetch player tournaments data
   loadTournamentsData() {
-    Timer(Duration(milliseconds: 10), () {
+    Timer(Duration(milliseconds: 1), () {
       Provider.of<PlayerProviderService>(context, listen: false)
-          .getTournamentsData();
+          .getTournamentsData(homeScreenScaffoldKey);
     });
   }
 
   // Service call to fetch player profile data
   loadUserProfileData() {
-    Timer(Duration(milliseconds: 5), () {
+    Timer(Duration(milliseconds: 1), () {
       Provider.of<PlayerProviderService>(context, listen: false)
-          .getPlayerData();
+          .getPlayerData(homeScreenScaffoldKey);
     });
   }
 

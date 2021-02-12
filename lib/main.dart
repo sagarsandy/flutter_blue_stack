@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_stack/screens/home_screen.dart';
 import 'package:flutter_blue_stack/screens/login_screen.dart';
 import 'package:flutter_blue_stack/services/player_provider_service.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -52,11 +53,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: future,
-      builder: (context, snapShot) {
-        return snapShot.data == true ? HomeScreen() : LogInScreen();
-      },
+    return Scaffold(
+      body: FutureBuilder(
+        future: future,
+        builder: (context, AsyncSnapshot<bool> snapShot) {
+          if (snapShot.connectionState == ConnectionState.done) {
+            if (snapShot.hasData && snapShot.data == true) {
+              return HomeScreen();
+            } else {
+              return LogInScreen();
+            }
+          } else {
+            return Center(
+              child: Container(
+                height: 100,
+                child: ScalingText(
+                  "...",
+                  style: TextStyle(
+                    fontSize: 30,
+                  ),
+                ),
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }

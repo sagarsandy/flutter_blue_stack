@@ -9,17 +9,23 @@ class PlayerProviderService extends ChangeNotifier {
   Player currentPlayer = null;
 
   // Service call to fetch player profile info data
-  getPlayerData() async {
+  getPlayerData(GlobalKey<ScaffoldState> scaffoldKey) async {
     print("Called get player data function");
-    Player player = await WebNetworkService()
+    Map<String, dynamic> playerData = await WebNetworkService()
         .getProfileData("https://sagarflutterdev.mock.pw/api/playerinfo");
-    currentPlayer = player;
-    print(currentPlayer.name);
-    notifyListeners();
+
+    if (playerData.containsKey("player")) {
+      currentPlayer = playerData["player"];
+      notifyListeners();
+    } else {
+      // Displaying error, if there is any issue in fetching data
+      scaffoldKey.currentState.showSnackBar(SnackBar(
+          backgroundColor: Colors.red, content: Text("Network error!!")));
+    }
   }
 
   // Service call to fetch player tournaments info data
-  getTournamentsData() async {
+  getTournamentsData(GlobalKey<ScaffoldState> scaffoldKey) async {
     print("Called get tournaments function");
     print(paginationToken);
     final url =
@@ -27,8 +33,14 @@ class PlayerProviderService extends ChangeNotifier {
             paginationToken;
     Map<String, dynamic> tournamentsData =
         await WebNetworkService().getTournaments(url);
-    paginationToken = tournamentsData["cursor"];
-    tournaments.addAll(tournamentsData["tournaments"]);
-    notifyListeners();
+    if (tournamentsData.containsKey("tournaments")) {
+      paginationToken = tournamentsData["cursor"];
+      tournaments.addAll(tournamentsData["tournaments"]);
+      notifyListeners();
+    } else {
+      // Displaying error, if there is any issue in fetching data
+      scaffoldKey.currentState.showSnackBar(SnackBar(
+          backgroundColor: Colors.red, content: Text("Network error!!")));
+    }
   }
 }
