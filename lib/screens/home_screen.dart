@@ -28,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("Sagar Sandy build");
     return Scaffold(
       key: homeScreenScaffoldKey,
       backgroundColor: Color(0XFFF9F9F9),
